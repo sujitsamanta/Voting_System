@@ -1,105 +1,12 @@
-<?php
-session_start();
-include("db_conn.php");
 
-if (!isset($_SESSION['admin_name'])) {
-    header("Location: admin_login.php");
-    exit;
-}
-
-// $admin_name = !empty($_SESSION['admin_name']) ? $_SESSION['admin_name'] : 'Admin';
-// $admin_initial = strtoupper(substr($admin_name, 0, 1));
-
-// Handle deletion
-if (isset($_GET['delete'])) {
-    $delete_id = intval($_GET['delete']);
-    $conn->query("DELETE FROM agent WHERE id = $delete_id");
-    header("Location: admin_dashbord.php");
-    exit;
-}
-
-// Fetch agents
-$sql = "SELECT * FROM agent ORDER BY id DESC";
-$result = $conn->query($sql);
-
-
-
-?>
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - Agent Management</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    animation: {
-                        'fade-in': 'fadeIn 0.3s ease-in-out',
-                        'slide-up': 'slideUp 0.3s ease-out'
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
-
-        @keyframes slideUp {
-            from {
-                transform: translateY(10px);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-    </style>
-</head>
-
-<body class="bg-gray-50 min-h-screen overflow-y-auto pt-16">
-    <!-- Navbar -->
-    <header class="bg-white shadow fixed top-0 left-0 right-0 z-50">
-        <div class="flex items-center justify-between px-4 py-3">
-            <div class="flex items-center space-x-3">
-                <i class="fas fa-vote-yea text-2xl text-indigo-600"></i>
-                <span class="text-xl font-bold">Admin Panel</span>
-            </div>
-            <div class="flex items-center space-x-4">
-                <div class="text-right hidden sm:block">
-                    <p class="text-sm font-medium text-gray-900"><?php echo $_SESSION['admin_name']; ?></p>
-                    <p class="text-xs text-gray-500">Administrator</p>
-                </div>
-                <div class="h-10 w-10 rounded-full bg-indigo-600 flex items-center justify-center">
-                    <span class="text-white font-bold text-lg"></span>
-                </div>
-                <form action="admin_logout.php" method="POST">
-                    <button class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition flex items-center space-x-1">
-                        <i class="fas fa-sign-out-alt"></i><span>Logout</span>
-                    </button>
-                </form>
-            </div>
-        </div>
-    </header>
+<?php include 'component/admin_header.php'; ?>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <!-- Stats Section -->
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
             <!-- Agent Count Box -->
-            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+             <a href="admin_view_agent.php">
+     <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
                         <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
@@ -115,6 +22,8 @@ $result = $conn->query($sql);
                     </div>
                 </div>
             </div>
+             </a>
+           
 
             <!-- Active Agents -->
             <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
@@ -171,15 +80,7 @@ $result = $conn->query($sql);
             </div>
         </div>
 
-        <!-- All Agents Section -->
-        <div class="lg:col-span-2">
-            <div class="bg-white rounded-lg shadow-sm border border-gray-200">
-                <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
-                    <h3 class="text-lg font-medium text-gray-900">All Agents</h3>
-                    <div class="flex items-center space-x-3">
-                        <input type="text" id="searchInput" placeholder="Search agents..."
-                            class="px-3 py-1 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                        <a href="admin_add_agent.php">
+<a href="admin_add_agent.php">
                             <button
                                 class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -189,75 +90,7 @@ $result = $conn->query($sql);
                                 Add Agent
                             </button>
                         </a>
-
-
-                    </div>
-                </div>
-                <div class="p-6">
-                    <div class="overflow-x-auto">
-                        <table class="min-w-full divide-y divide-gray-200">
-                            <thead class="bg-gray-50">
-                                <tr>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">DOB</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Party Name</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Symbol Photo</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Agent Photo</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody id="agentsTableBody" class="bg-white divide-y divide-gray-200">
-                                <?php if ($result->num_rows > 0): ?>
-                                    <?php $i = 1; while($row = $result->fetch_assoc()): ?>
-                                <!-- Sample Row -->
-                                <tr class="hover:bg-gray-50">
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><?php echo $i++; ?></td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm font-medium text-gray-900"><?php echo htmlspecialchars($row['name']); ?></div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><?php echo htmlspecialchars($row['dob']); ?></td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><?php echo htmlspecialchars($row['email']); ?></td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800"><?php echo htmlspecialchars($row['name_of_party']); ?></span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                    <?php if (!empty($row['symbol'])): ?>
-
-                                        <img src="<?php echo htmlspecialchars($row['symbol']); ?>" alt="Symbol" class="h-8 w-8 object-contain rounded" />
-                                    <?php else: ?>
-                                         <span class="text-gray-400">No Photo</span>
-                                    <?php endif; ?>
-
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <?php if (!empty($row['image'])): ?>
-                                        <img src="<?php echo htmlspecialchars($row['image']); ?>" alt="Agent" class="h-10 w-10 rounded-full object-cover" />
-                                        <?php else: ?>
-                                        <span class="text-gray-400">No Photo</span>
-                                    <?php endif; ?>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm">
-                                        <div class="flex items-center gap-2">
-                                            <a href="admin_update_agent.php?id=<?php echo $row['id']; ?>">
-                                                <button class="px-3 py-1 rounded-md text-white bg-indigo-600 hover:bg-indigo-700">Update</button>
-                                            </a>
-                                            <a href="admin_dashbord.php?delete=<?php echo $row['id']; ?>"onclick="return confirm('Are you sure you want to delete this agent?');">
-                                                <button  class="px-3 py-1 rounded-md text-white bg-red-600 hover:bg-red-700">Delete</button>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <?php endwhile; ?>
-                                <?php endif; ?>
-                                
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
+       
 
         <!-- Results Section -->
         <div class="mt-8">
@@ -408,6 +241,4 @@ $result = $conn->query($sql);
         </div>
     </div>
 
-</body>
-
-</html>
+<?php include 'component/admin_footer.php'; ?>

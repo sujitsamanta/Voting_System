@@ -1,6 +1,6 @@
 <?php
 include('db_conn.php');
-session_start(); // Ensure session is started
+// session_start(); // Ensure session is started
 $admin_name = !empty($_SESSION['admin_name']) ? $_SESSION['admin_name'] : 'Admin';
 $admin_initial = strtoupper(substr($admin_name, 0, 1));
 
@@ -36,49 +36,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 $conn->close();
 ?>
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Add Agent - Admin</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <style>
-        body {
-            height: 100vh;
-            overflow: hidden;
-        }
-    </style>
-</head>
+<?php include 'component/admin_header.php'; ?>
 
-<body class="bg-gradient-to-br from-indigo-100 to-indigo-200">
-
-    <!-- Navbar -->
-    <header class="bg-white shadow fixed top-0 left-0 right-0 z-50">
-        <div class="flex items-center justify-between px-4 py-3">
-            <div class="flex items-center space-x-3">
-                <i class="fas fa-vote-yea text-2xl text-indigo-600"></i>
-                <span class="text-xl font-bold">Admin Panel</span>
-            </div>
-            <div class="flex items-center space-x-4">
-                <div class="text-right hidden sm:block">
-                    <p class="text-sm font-medium text-gray-900"><?php echo $admin_name; ?></p>
-                    <p class="text-xs text-gray-500">Administrator</p>
-                </div>
-                <div class="h-10 w-10 rounded-full bg-indigo-600 flex items-center justify-center">
-                    <span class="text-white font-bold text-lg"><?php echo $admin_initial; ?></span>
-                </div>
-                <form action="admin_logout.php" method="POST">
-                    <button class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition flex items-center space-x-1">
-                        <i class="fas fa-sign-out-alt"></i><span>Logout</span>
-                    </button>
-                </form>
-            </div>
-        </div>
-    </header>
 
     <!-- Centered Form -->
     <div class="flex items-center justify-center" style="height: calc(100vh - 64px); margin-top: 64px;">
@@ -171,6 +132,4 @@ $conn->close();
         });
     </script>
 
-</body>
-
-</html>
+<?php include 'component/admin_footer.php'; ?>

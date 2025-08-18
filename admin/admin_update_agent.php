@@ -1,5 +1,5 @@
 <?php
-include("db_conn.php");
+include 'component/admin_header.php';
 
 $agentId = isset($_GET['id']) ? intval($_GET['id']) : 0;
 if ($agentId === 0 && isset($_POST['id'])) {
@@ -56,25 +56,7 @@ if (isset($_POST['update_agent']) && $agentId > 0) {
     }
 }
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Update Agent</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; }
-    </style>
-</head>
-<body class="bg-gray-50 min-h-screen">
-    <header class="bg-white border-b">
-        <div class="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
-            <h1 class="text-lg md:text-xl font-semibold text-gray-800">Update Agent <?php echo $agentId ? "#".$agentId : ""; ?></h1>
-            <a href="admin_dashbord.php" class="text-sm text-blue-600 hover:text-blue-700">Back to Dashboard</a>
-        </div>
-    </header>
+
 
     <main class="max-w-4xl mx-auto px-4 py-6">
         <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
@@ -133,5 +115,5 @@ if (isset($_POST['update_agent']) && $agentId > 0) {
             </form>
         </div>
     </main>
-</body>
-</html>
+<?php include 'component/admin_footer.php'; ?>
+
