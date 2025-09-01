@@ -9,6 +9,7 @@ if (isset($_POST['login_check'])) {
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($result);
     $_SESSION['user_name'] = $row['name'];
+    $_SESSION['user_id'] =$row['id'];
 
     if($row) {
 
@@ -81,7 +82,7 @@ if (isset($_POST['login_check'])) {
       <!-- Link -->
       <p class="text-center text-sm mt-4 text-gray-600">
         Don't have an account?
-        <a href="registration.php" class="text-blue-600 font-semibold hover:underline">Register here</a>
+        <a href="user_registration.php" class="text-blue-600 font-semibold hover:underline">Register here</a>
       </p>
     </form>
   </div>
