@@ -29,6 +29,9 @@ if (isset($_GET['logout'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VoteApp - Online Voting Platform</title>
     <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 
 </head>
 
@@ -58,6 +61,10 @@ if (isset($_GET['logout'])) {
                         <a href="user_vote_result.php"
                             class="<?= basename($_SERVER['PHP_SELF']) == 'user_vote_result.php' ? 'bg-blue-700 ' : '' ?> nav-link text-white hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">
                             Results
+                        </a>
+                        <a href="user_profile.php"
+                            class="<?= basename($_SERVER['PHP_SELF']) == 'user_profile.php' ? 'bg-blue-700 ' : '' ?> nav-link text-white hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">
+                            Profile
                         </a>
                     </div>
                 </div>

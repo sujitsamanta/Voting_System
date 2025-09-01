@@ -43,6 +43,36 @@
             <p class="text-center text-gray-500 mt-2">View live voting statistics</p>
         </div>
          </a>
+
+        <!-- View Profile Button -->
+        <a href="user_profile.php">
+            <div class="w-full md:w-auto">
+                <button
+                    class="w-full md:w-auto bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 text-white font-bold py-6 px-12 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-200 flex items-center justify-center space-x-3">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                    </svg>
+                    <span class="text-xl">View Profile</span>
+                </button>
+                <p class="text-center text-gray-500 mt-2">See your complete profile</p>
+            </div>
+        </a>
+
+        <!-- Update Profile Button -->
+        <a href="user_update_detail.php">
+            <div class="w-full md:w-auto">
+                <button
+                    class="w-full md:w-auto bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold py-6 px-12 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-200 flex items-center justify-center space-x-3">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4"></path>
+                    </svg>
+                    <span class="text-xl">Update Profile</span>
+                </button>
+                <p class="text-center text-gray-500 mt-2">Edit your personal information</p>
+            </div>
+        </a>
         
     </div>
 
